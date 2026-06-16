@@ -9,11 +9,11 @@ DJConnect is a physical-style voice remote for your music. The Apple app pairs w
 Use the latest GitHub Release in this repository for public app binaries:
 
 - macOS: signed and notarized app archive when available.
-- iOS/iPadOS: distributed through TestFlight or the App Store when available. Public sideloadable iOS binaries are not published here.
+- iOS/iPadOS: unsigned diagnostic build archive when available. Normal user distribution still goes through TestFlight or the App Store.
 
 Source code and development history live in the private app repository. Public Home Assistant integration and documentation live at:
 
-- Website: https://djconnect.pages.dev
+- Website: https://djconnect.dev
 - Home Assistant integration: https://github.com/pcvantol/djconnect
 
 ## Requirements
@@ -50,7 +50,7 @@ If macOS blocks the app, make sure you downloaded the notarized release asset fr
 
 ## iOS and iPadOS
 
-Public iOS/iPadOS distribution is expected through TestFlight or the App Store. A direct `.ipa` is not published in this repository because regular users cannot install it without Apple distribution signing.
+Unsigned iOS/iPadOS build archives are published here for diagnostics and internal validation when available. They are not a replacement for TestFlight or App Store distribution, and regular users cannot install them without Apple distribution signing.
 
 Developers can build from the private app repository with their own Apple Developer Program team and provisioning profiles.
 
