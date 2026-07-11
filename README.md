@@ -1,8 +1,20 @@
 # DJConnect App Releases
 
-Public release repository for the DJConnect iOS, iPadOS and macOS apps.
+DJConnect. Muziekbediening met karakter.
 
-DJConnect is a physical-style voice remote for your music. The Apple app pairs with the DJConnect Home Assistant integration and sends playback, queue, playlist and voice requests through Home Assistant. Spotify credentials and Home Assistant long-lived tokens are not stored in the app.
+DJConnect lets you ask for music and get it personally announced through Home
+Assistant. This public repository distributes release artifacts and public
+metadata for the DJConnect iOS, iPadOS and macOS apps.
+
+The Apple app pairs with the DJConnect Home Assistant integration and sends
+playback, queue, playlist and voice requests through Home Assistant. Spotify
+credentials and Home Assistant long-lived tokens are not stored in the app.
+
+## Repository Scope
+
+This repository is intentionally small and contains public release metadata and
+distributable Apple app artifacts only. Source code and development history live
+in the private DJConnect app source repository.
 
 ## Downloads
 
@@ -20,6 +32,8 @@ Source code and development history live in the private app repository. Public H
 
 - Home Assistant with the DJConnect integration installed and configured.
 - Spotify Premium for playback control through Spotify.
+- A configured Home Assistant Assist pipeline with working STT and TTS for
+  voice/DJ announcements.
 - iPhone, iPad or Mac on the same local network as Home Assistant for pairing and local Client API callbacks.
 - Local Network permission for discovery and pairing.
 - Microphone permission for push-to-talk music requests.
@@ -28,7 +42,8 @@ Source code and development history live in the private app repository. Public H
 ## Pairing
 
 1. Open DJConnect on iOS, iPadOS or macOS.
-2. Copy the visible pairing details from the app:
+2. Let Home Assistant discover the app through Bonjour/mDNS, or copy the visible
+   pairing details from the app:
    - Koppelcode / Pairing code
    - Client API url
 3. Open the DJConnect integration setup in Home Assistant.
@@ -36,6 +51,9 @@ Source code and development history live in the private app repository. Public H
 5. Wait for the app to show that pairing completed.
 
 The app advertises itself through Bonjour/mDNS as `_djconnect._tcp` while its local Client API is active. Home Assistant may use discovery to find the app, but the app still validates pairing through the visible koppelcode.
+
+Pairing creates a DJConnect bearer token for this app installation. Discovery
+alone never marks the app as paired.
 
 ## macOS Install Notes
 
@@ -60,6 +78,13 @@ DJConnect does not collect or process personal data outside the app. Device toke
 
 The app does not store Spotify credentials and does not store Home Assistant long-lived access tokens.
 
+## Related Links
+
+- Website: [https://djconnect.pages.dev](https://djconnect.pages.dev)
+- Home Assistant integration: [pcvantol/djconnect](https://github.com/pcvantol/djconnect)
+- ESP firmware releases: [pcvantol/djconnect-firmware](https://github.com/pcvantol/djconnect-firmware)
+- Raspberry Pi client releases: [pcvantol/djconnect-pi-releases](https://github.com/pcvantol/djconnect-pi-releases)
+
 ## Support
 
 For Home Assistant integration issues, pairing problems, feature requests or release feedback, open an issue in:
@@ -79,3 +104,10 @@ Never paste bearer tokens, Spotify tokens, Home Assistant tokens or passwords in
 ## Release Policy
 
 This repository is intentionally small and contains public release metadata and distributable artifacts only. Old releases may be cleaned up so that only the latest supported public release remains available.
+
+## Legal
+
+Copyright (c) 2026 Peter van Tol. All rights reserved.
+
+Spotify is a trademark of Spotify AB. DJConnect is not affiliated with,
+endorsed by, or sponsored by Spotify AB.
