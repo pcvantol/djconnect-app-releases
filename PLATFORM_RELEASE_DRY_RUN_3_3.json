@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "kind": "platform_release_distribution_dry_run",
+  "platform_version": "3.3",
+  "repository_version": "3.3.0",
+  "release_mode": "dry_run",
+  "artifact_state": "planned_not_published",
+  "publication": "forbidden"
+}
