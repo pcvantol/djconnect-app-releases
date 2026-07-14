@@ -8,11 +8,13 @@ Status: Active release-artifact repository
 
 ## Role
 
-public app release artifacts only.
+internal unsigned Apple build-artifact handoff and non-secret release metadata
+only.
 
 ## Ownership
 
-Owns: public app release artifacts, release metadata and localized release/install copy stored in this repository or attached to releases.
+Owns: internal unsigned Apple build-artifact handoff and non-secret release
+metadata. Signed public Apple distribution is outside this repository.
 
 Does not own: Apple client source, backend contracts, entitlement model or foundation docs.
 

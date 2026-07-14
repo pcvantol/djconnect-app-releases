@@ -76,7 +76,9 @@ Canonical foundation documents include:
 
 - Canonical repository: `pcvantol/djconnect-app-releases` for repository-specific technical
   design, implementation, build, release and test details.
-- Local responsibility: maintain implementation reality for public app release artifacts, release metadata and localized release/install copy stored in this repository or attached to releases.
+- Local responsibility: maintain implementation reality for internal unsigned
+  Apple artifact handoff and non-secret release metadata. Signed public Apple
+  distribution is owned by the separately approved App Store Connect process.
 - May this repository modify it: yes, within its ownership boundary.
 
 ## Clean-Session Entrypoints

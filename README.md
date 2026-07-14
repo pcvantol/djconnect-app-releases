@@ -3,8 +3,9 @@
 DJConnect. Muziekbediening met karakter.
 
 DJConnect lets you ask for music and get it personally announced through Home
-Assistant. This public repository distributes release artifacts and public
-metadata for the DJConnect iOS, iPadOS and macOS apps.
+Assistant. This repository is an internal handoff surface for unsigned Apple
+build artifacts and non-secret release metadata for the DJConnect iOS, iPadOS
+and macOS apps.
 
 The Apple app pairs with the DJConnect Home Assistant integration and sends
 playback, queue, playlist and voice requests through Home Assistant. Spotify
@@ -12,16 +13,19 @@ credentials and Home Assistant long-lived tokens are not stored in the app.
 
 ## Repository Scope
 
-This repository is intentionally small and contains public release metadata and
-distributable Apple app artifacts only. Source code and development history live
-in the private DJConnect app source repository.
+This repository is intentionally small and contains only internal unsigned
+artifact handoff metadata. Source code and development history live in the
+private DJConnect app source repository.
 
-## Downloads
+## Internal artifact handoff
 
-Use the latest GitHub Release in this repository for public app binaries:
+Unsigned artifacts are traceable to an exact app-source SHA and may be used
+only by the Apple Secure Distribution Relay for the maintainer's private
+MacBook, iPhone and iPad. They are not public install packages.
 
-- macOS: signed and notarized app archive when available.
-- iOS/iPadOS: unsigned diagnostic build archive when available. Normal user distribution still goes through TestFlight or the App Store.
+Signed public macOS, iOS and iPadOS distribution is performed directly through
+the separately approved App Store Connect process (TestFlight, App Store and
+Mac App Store). It is not published from this repository.
 
 Source code and development history live in the private app repository. Public Home Assistant integration and documentation live at:
 
@@ -55,22 +59,12 @@ The app advertises itself through Bonjour/mDNS as `_djconnect._tcp` while its lo
 Pairing creates a DJConnect bearer token for this app installation. Discovery
 alone never marks the app as paired.
 
-## macOS Install Notes
+## Internal installation
 
-For a signed and notarized macOS release:
-
-1. Download the latest `.zip` or `.dmg` asset from Releases.
-2. Open it and move `DJConnect.app` to `Applications`.
-3. Launch DJConnect.
-4. If macOS asks for Keychain access, allow it. DJConnect stores only its local pairing token there.
-
-If macOS blocks the app, make sure you downloaded the notarized release asset from this repository and not a local development build.
-
-## iOS and iPadOS
-
-Unsigned iOS/iPadOS build archives are published here for diagnostics and internal validation when available. They are not a replacement for TestFlight or App Store distribution, and regular users cannot install them without Apple distribution signing.
-
-Developers can build from the private app repository with their own Apple Developer Program team and provisioning profiles.
+The qualified macOS relay signs an exact manifest-bound unsigned artifact with
+Developer provisioning profiles stored locally on the maintainer's MacBook,
+then installs it only on the allowlisted private Apple device. Certificates,
+private keys and provisioning profiles never enter GitHub or this repository.
 
 ## Privacy
 
@@ -103,7 +97,9 @@ Never paste bearer tokens, Spotify tokens, Home Assistant tokens or passwords in
 
 ## Release Policy
 
-This repository is intentionally small and contains public release metadata and distributable artifacts only. Old releases may be cleaned up so that only the latest supported public release remains available.
+This repository is intentionally small and contains internal unsigned artifact
+handoff metadata only. It never publishes signed, notarized, TestFlight, App
+Store or Mac App Store artifacts.
 
 ## Legal
 

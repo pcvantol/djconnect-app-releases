@@ -29,11 +29,13 @@ A clean session must:
 
 ## Repository Role
 
-public app release artifacts only.
+internal unsigned Apple build-artifact handoff and non-secret release metadata
+only.
 
 ## Ownership Boundary
 
-This repository owns public app release artifacts, release metadata and localized release/install copy stored in this repository or attached to releases.
+This repository owns internal unsigned Apple build-artifact handoff and
+non-secret release metadata. It does not publish signed public Apple apps.
 
 This repository does not own Apple client source, backend contracts, entitlement model or foundation docs.
 

@@ -15,7 +15,8 @@ This repository follows the canonical DJConnect design foundation in `pcvantol/d
 
 ## Role
 
-This repo is a distribution surface for public/community DJConnect app release artifacts and release notes.
+This repo is an internal handoff surface for unsigned DJConnect Apple build
+artifacts and non-secret release metadata.
 
 It does not own product logic, app source, platform contracts, roadmap or store strategy.
 
@@ -33,6 +34,9 @@ Canonical source files live in `pcvantol/djconnect`:
 
 - Keep artifacts traceable to source commits in app/client source repositories.
 - Do not publish signing secrets, certificates, provisioning profiles, tokens or private user data.
-- Release notes should be user-facing and use official product language.
+- Do not publish signed, notarized, TestFlight or App Store artifacts here.
+- Internal artifacts are consumed only by the Apple Secure Distribution Relay
+  for the maintainer's private devices.
 - Do not fork roadmap or sync prompts locally.
-- App Store/TestFlight planning belongs in canonical distribution/governance documents before release automation changes.
+- Public Apple distribution belongs directly in the separately approved App
+  Store Connect process; it is outside this repository and an `INTERNAL_RELEASE`.
