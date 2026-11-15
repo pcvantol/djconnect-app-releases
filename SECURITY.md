@@ -1,7 +1,7 @@
 # Security policy
 
 Report a potential vulnerability privately through this repository's
-[GitHub private vulnerability reporting](https://github.com/pcvantol/djconnect-app-releases/security/advisories/new)
+[GitHub private vulnerability reporting](https://github.com/djconnect-music-dj/djconnect-app-releases/security/advisories/new)
 form. Do not publish proof-of-concept details in a public issue before the
 maintainer has assessed the report.
 

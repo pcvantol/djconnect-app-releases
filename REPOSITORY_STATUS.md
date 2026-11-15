@@ -4,7 +4,7 @@ Status: Active release-artifact repository
 
 ## Repository
 
-`pcvantol/djconnect-app-releases`
+`djconnect-music-dj/djconnect-app-releases`
 
 ## Role
 
