@@ -81,8 +81,8 @@ The app does not store Spotify credentials and does not store Home Assistant lon
 
 - Website: [https://djconnect.pages.dev](https://djconnect.pages.dev)
 - Home Assistant integration: [pcvantol/djconnect](https://github.com/pcvantol/djconnect)
-- ESP firmware releases: [pcvantol/djconnect-firmware](https://github.com/pcvantol/djconnect-firmware)
-- Raspberry Pi client releases: [pcvantol/djconnect-pi-releases](https://github.com/pcvantol/djconnect-pi-releases)
+- ESP firmware releases: [djconnect-music-dj/djconnect-firmware](https://github.com/djconnect-music-dj/djconnect-firmware)
+- Raspberry Pi client releases: [djconnect-music-dj/djconnect-pi-releases](https://github.com/djconnect-music-dj/djconnect-pi-releases)
 
 ## Support
 
