@@ -19,7 +19,7 @@ A clean session must:
 3. Read `CANONICAL_REFERENCES.md`.
 4. Read `REPOSITORY_STATUS.md`.
 5. Read `PROMPT_INDEX.md` when the work is phase-driven.
-6. Read canonical platform documents in `pcvantol/djconnect` only as needed for
+6. Read canonical platform documents in `djconnect-music-dj/djconnect` only as needed for
    the current task.
 7. Read repository-local implementation, build, release or test docs relevant
    to the task.
@@ -47,12 +47,12 @@ verification, Meta Engineering, prompt and ownership references.
 ## Prompt Discovery
 
 Use `PROMPT_INDEX.md` for repository-local phase state only. This repository
-must not copy the full platform roadmap from `pcvantol/djconnect`.
+must not copy the full platform roadmap from `djconnect-music-dj/djconnect`.
 
 ## Completion Protocol
 
 For engineering phases, follow the completion protocol in
-`pcvantol/djconnect/docs/meta/PHASE_COMPLETION_PROTOCOL.md` and record durable
+`djconnect-music-dj/djconnect/docs/meta/PHASE_COMPLETION_PROTOCOL.md` and record durable
 repository knowledge in the correct local or canonical document.
 
 ## Stop Condition
