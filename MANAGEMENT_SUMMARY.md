@@ -15,4 +15,4 @@ Distribution behavior did not change.
 
 Current GitHub evidence: zero open Dependabot security alerts and zero open
 Dependabot pull requests. The canonical platform record is maintained in
-`pcvantol/djconnect`.
+`djconnect-music-dj/djconnect`.

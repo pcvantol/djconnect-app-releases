@@ -1,8 +1,8 @@
 # DJConnect App Releases
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/pcvantol/djconnect/7e14e5970b3f68d33d243ae6bab2b281fad59bb2/assets/djconnect/brand-v2/wordmark-primary-dark.png">
-  <img src="https://raw.githubusercontent.com/pcvantol/djconnect/7e14e5970b3f68d33d243ae6bab2b281fad59bb2/assets/djconnect/brand-v2/wordmark-primary-light.png" alt="DJConnect" width="640">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/djconnect-music-dj/djconnect/7e14e5970b3f68d33d243ae6bab2b281fad59bb2/assets/djconnect/brand-v2/wordmark-primary-dark.png">
+  <img src="https://raw.githubusercontent.com/djconnect-music-dj/djconnect/7e14e5970b3f68d33d243ae6bab2b281fad59bb2/assets/djconnect/brand-v2/wordmark-primary-light.png" alt="DJConnect" width="640">
 </picture>
 
 DJConnect. Muziekbediening met karakter.
@@ -35,7 +35,7 @@ Mac App Store). It is not published from this repository.
 Source code and development history live in the private app repository. Public Home Assistant integration and documentation live at:
 
 - Website: https://djconnect.dev
-- Home Assistant integration: https://github.com/pcvantol/djconnect
+- Home Assistant integration: https://github.com/djconnect-music-dj/djconnect
 
 ## Requirements
 
@@ -80,7 +80,7 @@ The app does not store Spotify credentials and does not store Home Assistant lon
 ## Related Links
 
 - Website: [https://djconnect.pages.dev](https://djconnect.pages.dev)
-- Home Assistant integration: [pcvantol/djconnect](https://github.com/pcvantol/djconnect)
+- Home Assistant integration: [djconnect-music-dj/djconnect](https://github.com/djconnect-music-dj/djconnect)
 - ESP firmware releases: [djconnect-music-dj/djconnect-firmware](https://github.com/djconnect-music-dj/djconnect-firmware)
 - Raspberry Pi client releases: [djconnect-music-dj/djconnect-pi-releases](https://github.com/djconnect-music-dj/djconnect-pi-releases)
 
@@ -88,7 +88,7 @@ The app does not store Spotify credentials and does not store Home Assistant lon
 
 For Home Assistant integration issues, pairing problems, feature requests or release feedback, open an issue in:
 
-https://github.com/pcvantol/djconnect/issues
+https://github.com/djconnect-music-dj/djconnect/issues
 
 When reporting app problems, include:
 
