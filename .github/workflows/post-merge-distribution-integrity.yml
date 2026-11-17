@@ -9,7 +9,8 @@ permissions:
 
 jobs:
   cleanup-workflow-runs:
-    if: ${{ always() && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    # Preserve Actions runs and their evidence; do not clean up automatically.
+    if: ${{ false }}
     needs: [validate]
     runs-on: ubuntu-latest
     permissions:
