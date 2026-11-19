@@ -1,0 +1,138 @@
+name: Post-Merge Distribution Integrity
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  cleanup-workflow-runs:
+    # Preserve Actions runs and their evidence; do not clean up automatically.
+    if: ${{ false }}
+    needs: [validate]
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+      KEEP_RUNS: "2"
+    steps:
+      - name: Delete old completed workflow runs
+        run: |
+          set -euo pipefail
+
+          repo="${GITHUB_REPOSITORY}"
+          current_run_id="${GITHUB_RUN_ID}"
+          current_workflow_id="$(gh api "/repos/${repo}/actions/runs/${current_run_id}" --jq '.workflow_id')"
+
+          # Keep the merged PR's exact-SHA checks until the downstream
+          # post-merge evidence workflow has reconciled them.
+          protected_run_ids=()
+          pr_head_sha="$(
+            gh api -H 'Accept: application/vnd.github+json' \
+              "/repos/${repo}/commits/${GITHUB_SHA}/pulls" \
+              --jq '[.[] | select(.merged_at and .base.ref == "main" and .merge_commit_sha == env.GITHUB_SHA)] | if length == 1 then .[0].head.sha else empty end' \
+              || true
+          )"
+          if [ -n "${pr_head_sha}" ]; then
+            mapfile -t protected_run_ids < <(
+              gh api "/repos/${repo}/actions/runs?head_sha=${pr_head_sha}&per_page=100" \
+                --paginate --jq '.workflow_runs[] | .id'
+            )
+          fi
+
+          gh api "/repos/${repo}/actions/workflows" --paginate --jq '.workflows[] | [.id, .name] | @tsv' |
+          while IFS=$'\t' read -r workflow_id workflow_name; do
+            [ -n "${workflow_id}" ] || continue
+
+            keep_limit="${KEEP_RUNS}"
+            active_run_count="$(
+              {
+                gh api "/repos/${repo}/actions/workflows/${workflow_id}/runs?status=queued&per_page=100" \
+                  --paginate \
+                  --jq '.workflow_runs[] | .id'
+                gh api "/repos/${repo}/actions/workflows/${workflow_id}/runs?status=in_progress&per_page=100" \
+                  --paginate \
+                  --jq '.workflow_runs[] | .id'
+              } | awk -v current_run_id="${current_run_id}" '$0 != current_run_id { count++ } END { print count + 0 }'
+            )"
+
+            if [ "${workflow_id}" = "${current_workflow_id}" ] || [ "${active_run_count}" -gt 0 ]; then
+              keep_limit=$((KEEP_RUNS - 1))
+            fi
+
+            deleted_count=0
+            mapfile -t run_ids < <(
+              gh api "/repos/${repo}/actions/workflows/${workflow_id}/runs?status=completed&per_page=100" \
+                --paginate \
+                --jq '.workflow_runs | sort_by(.created_at) | reverse | .[].id'
+            )
+
+            if ((${#run_ids[@]} <= keep_limit)); then
+              echo "Workflow '${workflow_name}' (${workflow_id}): no completed runs to delete."
+              continue
+            fi
+
+            for index in "${!run_ids[@]}"; do
+              run_id="${run_ids[$index]}"
+              if ((index < keep_limit)) || [ "${run_id}" = "${current_run_id}" ] || [[ " ${protected_run_ids[*]} " == *" ${run_id} "* ]]; then
+                continue
+              fi
+
+              gh api \
+                --method DELETE \
+                "/repos/${repo}/actions/runs/${run_id}"
+              deleted_count=$((deleted_count + 1))
+            done
+
+            echo "Workflow '${workflow_name}' (${workflow_id}): deleted ${deleted_count} completed runs older than the effective keep limit ${keep_limit}."
+          done
+  validate:
+    name: Validate distribution metadata
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v5
+        with:
+          fetch-depth: 1
+      - name: Validate exact-main-SHA distribution metadata
+        env:
+          MAIN_SHA: ${{ github.sha }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          python - <<'PY'
+          from hashlib import sha256
+          import json
+          import os
+          from pathlib import Path
+
+          metadata_path = Path("PLATFORM_RELEASE_DRY_RUN_3_3.json")
+          metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+          assert metadata["schema_version"] == 1
+          assert metadata["kind"] == "platform_release_distribution_dry_run"
+          assert metadata["platform_version"] == "3.3"
+          assert metadata["repository_version"].startswith("3.3.")
+          assert metadata["release_mode"] == "dry_run"
+          assert metadata["artifact_state"] == "planned_not_published"
+          assert metadata["publication"] == "forbidden"
+          assert Path("README.md").is_file()
+          evidence = {
+              "schema_version": 1,
+              "kind": "platform_release_distribution_integrity",
+              "repository": os.environ["REPOSITORY"],
+              "main_sha": os.environ["MAIN_SHA"],
+              "metadata": str(metadata_path),
+              "metadata_sha256": sha256(metadata_path.read_bytes()).hexdigest(),
+              "artifact_state": metadata["artifact_state"],
+              "publication": metadata["publication"],
+              "status": "PASS",
+          }
+          Path("platform-release-distribution-integrity.json").write_text(json.dumps(evidence, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          PY
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: platform-release-distribution-integrity
+          path: platform-release-distribution-integrity.json
+          if-no-files-found: error
